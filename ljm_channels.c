@@ -58,7 +58,8 @@ void ljm_device_func (struct ljm_device_data *this,
                      "   for options on opening decice\r\n"
                      "write newname register value "
                      "  # Write value to register(name or id)\r\n"
-                     "read newname register #read register(name or id) value\r\n"                    );
+                     "read newname register #read register(name or id) value\r\n"                    
+                     );
       break;
 
    case create_rmcios:
