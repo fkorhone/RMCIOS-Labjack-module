@@ -27,10 +27,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #include <stdio.h>
 
 // For the LabJackM Library
-#include "LabJackM.h"
-
-// For LabJackM helper functions
-#include "LJM_Utilities.h"
+#include <LabJackM.h>
 
 // Channel sytem utility functions
 #include "RMCIOS-functions.h"
@@ -106,7 +103,6 @@ void ljm_device_func (struct ljm_device_data *this,
       {
          int err;
          err = LJM_OpenS ("LJM_dtANY", "LJM_ctANY", "LJM_idANY", &this->handle);
-         ErrorCheck (err, "LJM_Open");
       }
       else      
       // Open device with user parameters
@@ -123,7 +119,6 @@ void ljm_device_func (struct ljm_device_data *this,
                           sizeof (Identifier), Identifier);
          err =
             LJM_OpenS (DeviceType, ConnectionType, Identifier, &this->handle);
-         ErrorCheck (err, "LJM_Open");
       }
       break;
 
