@@ -44,13 +44,13 @@ void ljm_device_func (struct ljm_device_data *this,
                       const struct context_rmcios *context, int id,
                       enum function_rmcios function,
                       enum type_rmcios paramtype,
-                      union param_rmcios returnv,
+                      struct combo_rmcios *returnv,
                       int num_params, const union param_rmcios param)
 {
    switch (function)
    {
    case help_rmcios:
-      return_string (context, paramtype, returnv,
+      return_string (context, returnv,
                      "ljm device channel - Labjack ljm library device.\r\n"
                      "create ljmdev newname\r\n"
                      "setup ljmdev | DeviceType ConnectionType Identifier\r\n"
@@ -161,13 +161,13 @@ void ljm_device_func (struct ljm_device_data *this,
             {
                char str[LJM_STRING_ALLOCATION_SIZE];
                LJM_eReadAddressString (this->handle, address, str);
-               return_string (context, paramtype, returnv, str);
+               return_string (context, returnv, str);
             }
             else        // Read Numeric register
             {
                double value;
                LJM_eReadAddress (this->handle, address, type, &value);
-               return_float (context, paramtype, returnv, (float) value);
+               return_float (context, returnv, (float) value);
             }
          }
          else   // write
@@ -210,13 +210,13 @@ void ljm_register_func (struct ljm_register_data *this,
                         const struct context_rmcios *context, int id,
                         enum function_rmcios function,
                         enum type_rmcios paramtype,
-                        union param_rmcios returnv,
+                        struct combo_rmcios *returnv,
                         int num_params, const union param_rmcios param)
 {
    switch (function)
    {
    case help_rmcios:
-      return_string (context, paramtype, returnv,
+      return_string (context, returnv,
                      "ljm register channel"
                      " Register for handling individual device register\r\n"
                      " create ljmreg newname\r\n"
@@ -358,7 +358,7 @@ void ljm_register_func (struct ljm_register_data *this,
          {
             char str[LJM_STRING_ALLOCATION_SIZE];
             LJM_eReadAddressString (this->device->handle, this->address, str);
-            return_string (context, paramtype, returnv, str);
+            return_string (context, returnv, str);
          }
          else   // read raw bytes
          {
@@ -377,7 +377,7 @@ void ljm_register_func (struct ljm_register_data *this,
                                           buffer, // char * aBytes,
                                           &errorAddress); //int * ErrorAddress) ;
 
-               return_buffer (context, paramtype, returnv, buffer, blen);
+               return_buffer (context, returnv, buffer, blen);
             }
          }
       }
@@ -386,7 +386,7 @@ void ljm_register_func (struct ljm_register_data *this,
          double value;
          LJM_eReadAddress (this->device->handle, this->address,
                            this->type, &value);
-         return_float (context, paramtype, returnv, (float) value);
+         return_float (context, returnv, (float) value);
       }
       break;
    case write_rmcios:
@@ -404,7 +404,7 @@ void ljm_register_func (struct ljm_register_data *this,
                LJM_eReadAddressString (this->device->handle,
                                        this->address, str);
                write_str (context, linked_channels (context, id), str, 0);
-               return_string (context, paramtype, returnv, str);
+               return_string (context, returnv, str);
             }
             else
             {
@@ -426,7 +426,7 @@ void ljm_register_func (struct ljm_register_data *this,
 
                   write_buffer (context,
                                 linked_channels (context, id), buffer, blen, 0);
-                  return_buffer (context, paramtype, returnv, buffer, blen);
+                  return_buffer (context, returnv, buffer, blen);
                }
             }
          }
@@ -436,7 +436,7 @@ void ljm_register_func (struct ljm_register_data *this,
             LJM_eReadAddress (this->device->handle, this->address,
                               this->type, &value);
             write_f (context, linked_channels (context, id), (float) value);
-            return_float (context, paramtype, returnv, (float) value);
+            return_float (context, returnv, (float) value);
          }
       }
       else      // Write to register
