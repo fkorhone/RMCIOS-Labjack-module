@@ -43,13 +43,13 @@ void labjack_ai_func (struct lja_data *this,
                       const struct context_rmcios *context, int id,
                       enum function_rmcios function,
                       enum type_rmcios paramtype,
-                      union param_rmcios returnv,
+                      struct combo_rmcios *returnv,
                       int num_params, const union param_rmcios param)
 {
    switch (function)
    {
    case help_rmcios:
-      return_string (context, paramtype, returnv,
+      return_string (context, returnv,
                      "help for labjack ai. Commands:\r\n"
                      "create ljad ch_name | channel\r\n"
                      "setup ljad channel(0-11) | gain(0-7) | idnum(-1)"
@@ -94,7 +94,7 @@ void labjack_ai_func (struct lja_data *this,
    case read_rmcios:
       if (this == NULL)
          break;
-      return_float (context, paramtype, returnv, this->voltage);
+      return_float (context, returnv, this->voltage);
       break;
 
    case write_rmcios:
@@ -113,13 +113,13 @@ void labjack_ao_func (struct lja_data *this,
                       const struct context_rmcios *context, int id,
                       enum function_rmcios function,
                       enum type_rmcios paramtype,
-                      union param_rmcios returnv,
+                      struct combo_rmcios *returnv,
                       int num_params, const union param_rmcios param)
 {
    switch (function)
    {
    case help_rmcios:
-      return_string (context, paramtype, returnv,
+      return_string (context, returnv,
                      "help for labjack ao. Commands:\r\n"
                      "create ljad ch_name | channel\r\n"
                      "setup ljad channel(0-1) | idnum(-1)"
@@ -171,7 +171,7 @@ void labjack_ao_func (struct lja_data *this,
    case read_rmcios:
       if (this == NULL)
          break;
-      return_float (context, paramtype, returnv, this->voltage);
+      return_float (context, returnv, this->voltage);
       break;
    }
 }
@@ -188,13 +188,13 @@ void labjack_do_func (struct ljd_data *this,
                       const struct context_rmcios *context, int id,
                       enum function_rmcios function,
                       enum type_rmcios paramtype,
-                      union param_rmcios returnv,
+                      struct combo_rmcios *returnv,
                       int num_params, const union param_rmcios param)
 {
    switch (function)
    {
    case help_rmcios:
-      return_string (context, paramtype, returnv,
+      return_string (context, returnv,
                      "help for labjack digital out. Commands:\r\n"
                      "create ljdo ch_name | channel\r\n"
                      "setup ljdo channel(IO0-IO3/D0-D15) "
@@ -252,7 +252,7 @@ void labjack_do_func (struct ljd_data *this,
    case read_rmcios:
       if (this == NULL)
          break;
-      return_int (context, paramtype, returnv, this->state);
+      return_int (context, returnv, this->state);
       break;
    }
 }
@@ -261,13 +261,13 @@ void labjack_di_func (struct ljd_data *this,
                       const struct context_rmcios *context, int id,
                       enum function_rmcios function,
                       enum type_rmcios paramtype,
-                      union param_rmcios returnv,
+                      struct combo_rmcios *returnv,
                       int num_params, const union param_rmcios param)
 {
    switch (function)
    {
    case help_rmcios:
-      return_string (context, paramtype, returnv,
+      return_string (context, returnv,
                      "help for labjack digital in. Commands:\r\n"
                      "create ljdi ch_name | channel\r\n"
                      "setup ljdi channel(IO0-IO3/D0-D15) "
@@ -324,7 +324,7 @@ void labjack_di_func (struct ljd_data *this,
    case read_rmcios:
       if (this == NULL)
          break;
-      return_float (context, paramtype, returnv, this->state);
+      return_float (context, returnv, this->state);
       break;
    }
 }
