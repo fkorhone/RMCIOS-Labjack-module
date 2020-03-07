@@ -1,0 +1,12 @@
+LIBRARY "LabJackM.dll"
+EXPORTS
+LJM_OpenS@16
+LJM_NameToAddress@12
+LJM_AddressToType@8
+LJM_eReadAddressString@12
+LJM_eWriteAddressString@12
+LJM_eReadAddress@16
+LJM_eWriteAddress@20
+LJM_eReadAddressByteArray@20
+LJM_eWriteAddressByteArray@20
+
