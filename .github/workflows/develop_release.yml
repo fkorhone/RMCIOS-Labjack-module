@@ -31,7 +31,7 @@ jobs:
       run: make install INSTALLDIR=artifacts/win32
 
     - name: compile win64
-      run: make TOOL_PREFIX=x86_64-w64-mingw32-
+      run: make TOOL_PREFIX=x86_64-w64-mingw32- LINKDEF=LabJackM64.def
    
     - name: copy win64 files
       run: make install INSTALLDIR=artifacts/win64
@@ -61,7 +61,7 @@ jobs:
       with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above
           asset_path: ./module-win32.zip
-          asset_name: RMCIOS-Labjack-modules-win32.zip
+          asset_name: RMCIOS-LabJack-modules-win32.zip
           asset_content_type: application/zip
 
     - name: Upload 64bit Release Asset
@@ -72,5 +72,5 @@ jobs:
       with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above
           asset_path: ./module-win64.zip
-          asset_name: RMCIOS-Labjack-modules-win64.zip
+          asset_name: RMCIOS-LabJack-modules-win64.zip
           asset_content_type: application/zip

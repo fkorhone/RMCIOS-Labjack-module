@@ -7,6 +7,7 @@ GCC?=${TOOL_PREFIX}gcc
 DLLTOOL?=${TOOL_PREFIX}dlltool
 MAKE?=make
 INSTALLDIR:=..${/}..
+LINKDEF=LabJackM.def
 export
 
 all: ljm-module labjack-module
